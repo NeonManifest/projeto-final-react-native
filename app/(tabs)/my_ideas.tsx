@@ -15,7 +15,7 @@ export default function MyIdeasScreen() {
         style={[
           styles.title,
           {
-            color: theme.colors.text,
+            color: theme.colors.primary,
             fontFamily: "EnterCommand",
           },
         ]}

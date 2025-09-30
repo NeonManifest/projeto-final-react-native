@@ -13,7 +13,7 @@ export const ideasScreenStyles = StyleSheet.create({
     letterSpacing: 2,
   },
   subtitle: {
-    fontSize: 24,
+    fontSize: 32,
     textAlign: "center",
     marginBottom: 30,
   },
