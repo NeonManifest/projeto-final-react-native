@@ -5,23 +5,18 @@
     "slug": "jamhelp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/jam.png",
+    "icon": "./assets/images/ios-dark.png",
     "userInterfaceStyle": "automatic",
     "backgroundColor": "#8B5CF6",
     "primaryColor": "#8B5CF6",
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/jam.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#8B5CF6"
       },
       "package": "com.example.jamhelp"
     },
     "ios": {
-      "splash": {
-        "image": "./assets/images/jam.png",
-        "resizeMode": "contain",
-        "backgroundColor": "#8B5CF6"
-      },
       "bundleIdentifier": "com.example.jamhelp"
     }
   }

@@ -1,4 +1,4 @@
-// constants/theme.js
+// constants/theme.js (updated)
 export const JamTheme = {
   colors: {
     // Light theme
@@ -10,6 +10,7 @@ export const JamTheme = {
     surface: "#F8FAFC",
     text: "#1F2937",
     textLight: "#6B7280",
+    border: "#E5E7EB",
 
     // Dark theme colors
     dark: {
@@ -19,6 +20,7 @@ export const JamTheme = {
       textLight: "#A0A0A0",
       primary: "#9F7AEA",
       accent: "#0EA5E9",
+      border: "#374151",
     },
   },
   typography: {
@@ -37,6 +39,24 @@ export const JamTheme = {
       fontSize: 16,
       lineHeight: 24,
     },
+    caption: {
+      fontFamily: "System",
+      fontSize: 14,
+      lineHeight: 20,
+    },
+  },
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 16,
+    lg: 24,
+    xl: 32,
+  },
+  borderRadius: {
+    sm: 4,
+    md: 8,
+    lg: 12,
+    xl: 16,
   },
 };
 
