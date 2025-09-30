@@ -1,5 +1,5 @@
 // app/(tabs)/index.tsx
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,17 +7,79 @@ import {
   TouchableOpacity,
   ScrollView,
   Switch,
+  Alert,
 } from "react-native";
 import { useSystemTheme } from "./../contexts/SystemThemeContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { welcomeScreenStyles as styles } from "../styles/startScreenStyles";
-import DurationSelect from "../components/DurationSelect";
+import DurationSelect from "./../components/DurationSelect";
+import { storage } from "./../utils/storage"; // Import storage utility
+import { useRouter } from "expo-router";
 
 export default function NewIdeaScreen() {
   const theme = useSystemTheme();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
+
+  // Form state
+  const [themeInput, setThemeInput] = useState("");
+  const [durationNumber, setDurationNumber] = useState("");
+  const [durationUnit, setDurationUnit] = useState("hours");
+  const [techInput, setTechInput] = useState("");
   const [saveTech, setSaveTech] = React.useState(false);
-  const [durationUnit, setDurationUnit] = React.useState("hours");
+
+  // Load saved tech on component mount
+  useEffect(() => {
+    const loadSavedTech = async () => {
+      const savedTech = await storage.getSavedTech();
+      if (savedTech) {
+        setTechInput(savedTech);
+        setSaveTech(true); // Auto-check the save option if we have saved tech
+      }
+    };
+
+    loadSavedTech();
+  }, []);
+
+  // Generate idea handler
+  const handleGenerateIdea = async () => {
+    // Basic validation
+    if (!themeInput.trim()) {
+      Alert.alert("Missing Theme", "Please enter a theme for your game jam.");
+      return;
+    }
+
+    if (!durationNumber.trim() || isNaN(Number(durationNumber))) {
+      Alert.alert("Invalid Duration", "Please enter a valid duration number.");
+      return;
+    }
+
+    if (!techInput.trim()) {
+      Alert.alert("Missing Tech", "Please enter the technologies you know.");
+      return;
+    }
+
+    // Save tech if user opted to save it
+    if (saveTech && techInput.trim()) {
+      await storage.saveTech(techInput.trim());
+    }
+
+    // Create the idea data object
+    const ideaData = {
+      theme: themeInput.trim(),
+      duration: `${durationNumber} ${durationUnit}`,
+      tech: techInput.trim(),
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log("Generated Idea Data:", ideaData);
+
+    // Navigate to results screen with the data
+    router.push({
+      pathname: "/results",
+      params: ideaData,
+    });
+  };
 
   return (
     <View
@@ -51,6 +113,7 @@ export default function NewIdeaScreen() {
         </Text>
 
         <View style={styles.form}>
+          {/* Theme Input */}
           <View style={styles.inputGroup}>
             <Text style={[styles.label, { color: theme.colors.text }]}>
               Theme of the jam
@@ -66,9 +129,12 @@ export default function NewIdeaScreen() {
               ]}
               placeholder="Enter theme (e.g., Space, Time, Isolation)"
               placeholderTextColor={theme.colors.textLight + "80"}
+              value={themeInput}
+              onChangeText={setThemeInput}
             />
           </View>
 
+          {/* Duration Input */}
           <View style={styles.inputGroup}>
             <Text style={[styles.label, { color: theme.colors.text }]}>
               Jam duration
@@ -86,6 +152,8 @@ export default function NewIdeaScreen() {
                 placeholder="48"
                 placeholderTextColor={theme.colors.textLight + "80"}
                 keyboardType="numeric"
+                value={durationNumber}
+                onChangeText={setDurationNumber}
               />
               <DurationSelect
                 value={durationUnit}
@@ -94,6 +162,7 @@ export default function NewIdeaScreen() {
             </View>
           </View>
 
+          {/* Tech Input */}
           <View style={styles.inputGroup}>
             <Text style={[styles.label, { color: theme.colors.text }]}>
               Tech you know
@@ -112,9 +181,12 @@ export default function NewIdeaScreen() {
               multiline
               numberOfLines={3}
               textAlignVertical="top"
+              value={techInput}
+              onChangeText={setTechInput}
             />
           </View>
 
+          {/* Save Tech Toggle */}
           <View style={styles.toggleRow}>
             <Text style={[styles.toggleLabel, { color: theme.colors.text }]}>
               Save tech I know for future jams
@@ -132,12 +204,13 @@ export default function NewIdeaScreen() {
             />
           </View>
 
+          {/* Generate Button */}
           <TouchableOpacity
             style={[
               styles.generateButton,
               { backgroundColor: theme.colors.primary },
             ]}
-            onPress={() => console.log("Generate idea!")}
+            onPress={handleGenerateIdea} // Use the new handler
           >
             <Text
               style={[

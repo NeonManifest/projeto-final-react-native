@@ -4,7 +4,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import * as Font from "expo-font";
 import { SystemThemeProvider } from "./contexts/SystemThemeContext";
-import { SafeAreaProvider } from "react-native-safe-area-context"; // Add this
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -36,6 +36,13 @@ export default function RootLayout() {
       <SystemThemeProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="results"
+            options={{
+              presentation: "modal",
+              animation: "slide_from_bottom",
+            }}
+          />
         </Stack>
       </SystemThemeProvider>
     </SafeAreaProvider>
