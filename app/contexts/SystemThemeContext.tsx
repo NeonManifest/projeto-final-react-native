@@ -46,3 +46,5 @@ export const SystemThemeProvider: React.FC<SystemThemeProviderProps> = ({
     </SystemThemeContext.Provider>
   );
 };
+
+export default SystemThemeProvider;

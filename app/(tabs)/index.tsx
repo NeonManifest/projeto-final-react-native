@@ -2,8 +2,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
-import { useSystemTheme } from "./contexts/SystemThemeContext";
-import { welcomeScreenStyles as styles } from "./styles/startScreenStyles";
+import { useSystemTheme } from "../contexts/SystemThemeContext";
+import { welcomeScreenStyles as styles } from "../styles/startScreenStyles";
 
 export default function WelcomeScreen() {
   const theme = useSystemTheme();
@@ -12,7 +12,6 @@ export default function WelcomeScreen() {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      {/* Main Title */}
       <Text
         style={[
           styles.title,
