@@ -27,6 +27,7 @@ export default function NewIdeaScreen() {
   const [durationUnit, setDurationUnit] = useState("hours");
   const [techInput, setTechInput] = useState("");
   const [saveTech, setSaveTech] = React.useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   // Load saved tech on component mount
   useEffect(() => {
@@ -43,6 +44,11 @@ export default function NewIdeaScreen() {
 
   // Generate idea handler
   const handleGenerateIdea = async () => {
+    // Prevent multiple generations
+    if (isGenerating) {
+      return;
+    }
+
     // Basic validation
     if (!themeInput.trim()) {
       Alert.alert("Missing Theme", "Please enter a theme for your game jam.");
@@ -59,26 +65,35 @@ export default function NewIdeaScreen() {
       return;
     }
 
-    // Save tech if user opted to save it
-    if (saveTech && techInput.trim()) {
-      await storage.saveTech(techInput.trim());
+    try {
+      setIsGenerating(true); // Set loading state
+
+      // Save tech if user opted to save it
+      if (saveTech && techInput.trim()) {
+        await storage.saveTech(techInput.trim());
+      }
+
+      // Create the idea data object
+      const ideaData = {
+        theme: themeInput.trim(),
+        duration: `${durationNumber} ${durationUnit}`,
+        tech: techInput.trim(),
+        timestamp: new Date().toISOString(),
+      };
+
+      console.log("Generated Idea Data:", ideaData);
+
+      // Navigate to results screen with the data
+      router.push({
+        pathname: "/results",
+        params: ideaData,
+      });
+    } catch (error) {
+      console.error("Generation error:", error);
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    } finally {
+      setIsGenerating(false); // Reset loading state
     }
-
-    // Create the idea data object
-    const ideaData = {
-      theme: themeInput.trim(),
-      duration: `${durationNumber} ${durationUnit}`,
-      tech: techInput.trim(),
-      timestamp: new Date().toISOString(),
-    };
-
-    console.log("Generated Idea Data:", ideaData);
-
-    // Navigate to results screen with the data
-    router.push({
-      pathname: "/results",
-      params: ideaData,
-    });
   };
 
   return (
@@ -176,7 +191,7 @@ export default function NewIdeaScreen() {
                   borderColor: theme.colors.primary + "40",
                 },
               ]}
-              placeholder="Unity, JavaScript, Python, etc."
+              placeholder="Unity, Godot, Pygame, etc."
               placeholderTextColor={theme.colors.textLight + "80"}
               multiline
               numberOfLines={3}
@@ -204,13 +219,18 @@ export default function NewIdeaScreen() {
             />
           </View>
 
-          {/* Generate Button */}
           <TouchableOpacity
             style={[
               styles.generateButton,
-              { backgroundColor: theme.colors.primary },
+              {
+                backgroundColor: isGenerating
+                  ? theme.colors.textLight
+                  : theme.colors.primary,
+                opacity: isGenerating ? 0.7 : 1,
+              },
             ]}
-            onPress={handleGenerateIdea} // Use the new handler
+            onPress={handleGenerateIdea}
+            disabled={isGenerating} // Disable button when generating
           >
             <Text
               style={[
@@ -221,7 +241,7 @@ export default function NewIdeaScreen() {
                 },
               ]}
             >
-              GENERATE IDEA
+              {isGenerating ? "GENERATING..." : "GENERATE IDEA"}
             </Text>
           </TouchableOpacity>
         </View>

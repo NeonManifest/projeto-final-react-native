@@ -1,6 +1,6 @@
 // components/IdeaCard.tsx
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useSystemTheme } from "../contexts/SystemThemeContext";
 
 export interface IdeaCardProps {
@@ -18,28 +18,40 @@ export interface IdeaCardProps {
 export default function IdeaCard({ idea, onPress }: IdeaCardProps) {
   const theme = useSystemTheme();
 
-  // Extract the first line (usually the title) from the AI response
   const getTitle = () => {
     const firstLine = idea.aiResponse.split("\n")[0];
-    return firstLine.replace("🎮", "").trim() || `Game: ${idea.theme}`;
+
+    let title = firstLine
+      .replace(/🎮/g, "")
+      .replace(/game title:?/gi, "")
+      .replace(/title:?/gi, "")
+      .replace(/game:?/gi, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return title || idea.theme;
   };
 
-  // Extract a short preview
   const getPreview = () => {
     const lines = idea.aiResponse.split("\n");
-    for (let i = 1; i < lines.length; i++) {
+
+    for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
-      if (
-        line &&
-        !line.startsWith("🎮") &&
-        !line.startsWith("📖") &&
-        !line.startsWith("🎯") &&
-        !line.startsWith("🛠️") &&
-        !line.startsWith("💡")
-      ) {
-        return line.length > 80 ? line.substring(0, 80) + "..." : line;
+
+      if (line.startsWith("📖") || line.includes("CONCEPT")) {
+        // Remove everything before and including "CONCEPT"
+        let conceptText = line
+          .replace(/.*(?:📖|CONCEPT:?|GAME CONCEPT:?)\s*/i, "")
+          .trim();
+
+        if (conceptText) {
+          return conceptText.length > 110
+            ? conceptText.substring(0, 110) + "..."
+            : conceptText;
+        }
       }
     }
+
     return `A ${idea.theme} game using ${idea.tech}`;
   };
 
@@ -119,7 +131,13 @@ export default function IdeaCard({ idea, onPress }: IdeaCardProps) {
           </View>
         </View>
         <View style={{ paddingLeft: 8 }}>
-          <Text style={{ fontSize: 24 }}>🎮</Text>
+          <Image
+            source={require("../../assets/images/jam_dark.png")}
+            style={{
+              width: 24,
+              height: 24,
+            }}
+          />
         </View>
       </View>
     </TouchableOpacity>
