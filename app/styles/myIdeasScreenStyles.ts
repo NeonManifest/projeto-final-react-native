@@ -17,6 +17,12 @@ export const ideasScreenStyles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 30,
   },
+  emptyImage: {
+    width: 120, // Adjust based on your image size
+    height: 120, // Adjust based on your image size
+    marginBottom: 20,
+    resizeMode: "contain", // This ensures the image scales properly
+  },
   list: {
     flex: 1,
   },

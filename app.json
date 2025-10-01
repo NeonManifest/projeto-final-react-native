@@ -18,6 +18,12 @@
     },
     "ios": {
       "bundleIdentifier": "com.example.jamhelp"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c60daca8-6786-45a8-9b9d-7c8804d8bdb0"
+      }
+    },
+    "owner": "bervillarinho"
   }
 }
