@@ -1,6 +1,7 @@
 // app/(tabs)/my-ideas.tsx
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Image } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useSystemTheme } from "./../contexts/SystemThemeContext";
 import { ideasScreenStyles as styles } from "../styles/myIdeasScreenStyles";
 import { ideaStorage, SavedIdea } from "../../services/storageService";
@@ -13,15 +14,19 @@ export default function MyIdeasScreen() {
   const [selectedIdea, setSelectedIdea] = useState<SavedIdea | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    loadIdeas();
-  }, []);
+  // Reload ideas every time the screen comes into focus
+  useFocusEffect(
+    React.useCallback(() => {
+      loadIdeas();
+    }, [])
+  );
 
   const loadIdeas = async () => {
     const savedIdeas = await ideaStorage.getIdeas();
     setIdeas(savedIdeas);
   };
 
+  // Rest of your component remains the same...
   const handleIdeaPress = (idea: SavedIdea) => {
     setSelectedIdea(idea);
     setModalVisible(true);
@@ -29,13 +34,11 @@ export default function MyIdeasScreen() {
 
   const handleDeleteIdea = async (id: string) => {
     await ideaStorage.deleteIdea(id);
-    await loadIdeas(); // Reload the list
+    await loadIdeas(); // Reload after deletion
   };
 
   const handleShareIdea = (idea: SavedIdea) => {
-    // For now, just log the share action
     console.log("Sharing idea:", idea);
-    // You can implement actual sharing later (React Native Share API)
     alert(`Share functionality would open for: ${idea.theme}`);
   };
 
