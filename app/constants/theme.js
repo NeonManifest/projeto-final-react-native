@@ -1,4 +1,4 @@
-// constants/theme.js (updated)
+// TEMA PRINCIPAL DO APLICATIVO, DEFININDO CORES, TIPOGRAFIA, ESPAÇAMENTOS E RAIOS DE BORDA PARA MODO CLARO E ESCURO
 export const JamTheme = {
   colors: {
     // Light theme

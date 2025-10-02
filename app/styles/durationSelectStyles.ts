@@ -1,3 +1,4 @@
+// FOLHA DE ESTILOS PARA O COMPONENTE DE SELEÇÃO DE DURAÇÃO DA JAM
 import { StyleSheet } from "react-native";
 
 export const selectStyles = StyleSheet.create({

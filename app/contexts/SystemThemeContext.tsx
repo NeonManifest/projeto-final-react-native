@@ -1,4 +1,4 @@
-// contexts/SystemThemeContext.tsx
+// CONTEXTO PARA PUXAR O MODO CLARO/ESCURO DO SISTEMA, USADO PARA APLICAR TEMAS DINÂMICOS A TODO O APLICATIVO
 import React, { createContext, useContext, ReactNode } from "react";
 import { useColorScheme } from "react-native";
 import JamTheme from "../constants/theme";

@@ -1,4 +1,4 @@
-// app/(tabs)/_layout.tsx
+//LAYOUT DE ABAS PRINCIPAL DO APLICATIVO, DEFININDO AS TELAS "NEW IDEA" E "MY IDEAS" COM ESTILIZAÇÃO DINÂMICA BASEADA NO TEMA ATUAL
 import { Tabs } from "expo-router";
 import { Text } from "react-native";
 import { useSystemTheme } from "./../contexts/SystemThemeContext";

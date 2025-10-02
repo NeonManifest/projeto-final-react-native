@@ -1,4 +1,4 @@
-// components/IdeaCard.tsx
+// COMPONENTE CARD DE IDEIA, EXIBE UM RESUMO DA IDEIA GERADA PELA IA, INCLUINDO TÍTULO, PREVIEW, TEMA E DATA
 import React from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import { useSystemTheme } from "../contexts/SystemThemeContext";

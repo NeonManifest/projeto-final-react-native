@@ -1,3 +1,4 @@
+// SERVIÇO USADO PARA GERENCIAR O ARMAZENAMENTO LOCAL DAS IDEIAS GERADAS PELA IA
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SAVED_IDEAS_KEY = "saved_ideas";

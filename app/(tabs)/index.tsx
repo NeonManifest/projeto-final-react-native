@@ -1,4 +1,4 @@
-// app/(tabs)/index.tsx
+// TELA DE NOVA IDEIA, ONDE O USUÁRIO PODE INSERIR OS INPUTS PARA GERAR UMA IDEIA DE JOGO USANDO IA
 import React, { useState, useEffect } from "react";
 import {
   View,

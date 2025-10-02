@@ -1,3 +1,4 @@
+// FOLHA DE ESTILOS PARA A TELA DE MINHAS IDEIAS, ONDE SÃO LISTADAS AS IDEIAS SALVAS PELO USUÁRIO
 import { StyleSheet } from "react-native";
 
 export const ideasScreenStyles = StyleSheet.create({

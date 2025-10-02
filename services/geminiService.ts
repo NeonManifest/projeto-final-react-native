@@ -1,3 +1,4 @@
+// SERVIÇO USADO PARA INTERAGIR COM A API GEMINI DA GOOGLE PARA GERAR IDEIAS DE JOGOS
 const getApiKey = (): string => {
   return process.env.EXPO_PUBLIC_GEMINI_API_KEY || "";
 };

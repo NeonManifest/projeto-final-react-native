@@ -1,4 +1,4 @@
-// app/(tabs)/my-ideas.tsx
+// TELA QUE LISTA AS IDEIAS SALVAS PELO USUÁRIO, COM CARDS CLICÁVEIS PARA VER DETALHES, COMPARTILHAR OU DELETAR
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView, Image } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";

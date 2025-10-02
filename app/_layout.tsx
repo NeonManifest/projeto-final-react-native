@@ -1,4 +1,4 @@
-// app/_layout.tsx
+// LAYOUT DA RAIZ DO APLICATIVO, RESPONSÁVEL POR CARREGAR AS FONTES E CONFIGURAR A NAVEGAÇÃO
 import React, { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";

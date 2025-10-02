@@ -1,4 +1,4 @@
-// components/DurationSelect.tsx
+// COMPONENTE DE SELEÇÃO DE DURAÇÃO DA JAM, PERMITE AO USUÁRIO ESCOLHER ENTRE HORAS, DIAS, SEMANAS OU MESES
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Modal, FlatList } from "react-native";
 import { useSystemTheme } from "../contexts/SystemThemeContext";

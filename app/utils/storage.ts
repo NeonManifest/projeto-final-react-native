@@ -1,4 +1,4 @@
-// utils/storage.ts
+//UTIL USADA PARA SALVAR PREFERÊNCIAS DE USUÁRIO NO FORMULÁRIO, OU SEJA, AS TECNOLOGIAS SELECIONADAS
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SAVED_TECH_KEY = "saved_tech";

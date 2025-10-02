@@ -1,3 +1,4 @@
+// FOLHA DE ESTILOS PARA A TELA INICIAL ONDE O USUÁRIO INSERE AS PREFERÊNCIAS PARA GERAR IDEIAS DE JOGOS
 import { StyleSheet } from "react-native";
 
 export const welcomeScreenStyles = StyleSheet.create({
