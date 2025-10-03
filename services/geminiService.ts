@@ -3,6 +3,7 @@ const getApiKey = (): string => {
   return process.env.EXPO_PUBLIC_GEMINI_API_KEY || "";
 };
 
+// ACESSO À API GEMINI VIA FETCH, NÃO SEI SE TEM UMA FORMA MELHOR DE FAZER ISSO
 export const generateContent = async (prompt: string): Promise<string> => {
   const apiKey = getApiKey();
 
@@ -44,7 +45,9 @@ export const generateContent = async (prompt: string): Promise<string> => {
   }
 };
 
-// Usage in your app:
+// EU NÃO ACHEI ONDE COLOCA O PROMPT INICIAL NO GOOGLE AI, ENTÃO FIZ DO MEU JEITO
+// AS RESPOSTAS GERALMENTE FICAM MUITO BOAS, ENTÃO VOU DEIXAR ASSIM MESMO
+// O PROMPT PROVAVELMENTE É A PARTE DO APP QUE TEVE MAIS REFINAMENTOS
 export const generateGameIdea = async (
   theme: string,
   duration: string,
