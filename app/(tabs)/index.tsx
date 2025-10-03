@@ -13,7 +13,7 @@ import { useSystemTheme } from "./../contexts/SystemThemeContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { welcomeScreenStyles as styles } from "../styles/startScreenStyles";
 import DurationSelect from "./../components/DurationSelect";
-import { storage } from "./../utils/storage"; // Import storage utility
+import { storage } from "./../utils/storage";
 import { useRouter } from "expo-router";
 
 export default function NewIdeaScreen() {

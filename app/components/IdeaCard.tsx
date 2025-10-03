@@ -14,7 +14,7 @@ export interface IdeaCardProps {
   };
   onPress: (idea: any) => void;
 }
-
+// DESCULPA NÃO TER FOLHA DE ESTILO! ESTAVA CORRIDO QUANDO EU FIZ ESSE COMPONENTE
 export default function IdeaCard({ idea, onPress }: IdeaCardProps) {
   const theme = useSystemTheme();
 

@@ -22,7 +22,6 @@ export interface IdeaDetailModalProps {
   onShare: (idea: any) => void;
 }
 
-// PEÇO DESCULPAS POR ESSA FUNÇÃO QUE PODERIA MUITO BEM SER UM COMPONENTE SEPARADO COMO O MODAL DE RESULTADOS
 export default function IdeaDetailModal({
   visible,
   idea,
@@ -47,7 +46,8 @@ export default function IdeaDetailModal({
   const cancelDelete = () => {
     setShowDeleteConfirm(false);
   };
-
+  // FORMATA O CONTEÚDO DA IDEIA PARA EXIBIÇÃO, ADICIONANDO ESTILIZAÇÕES CONDICIONAIS PARA TÍTULOS, LISTAS, ETC.
+  // COMO O RESULTADO DA IA NÃO É MUITO PREVISÍVEL ÀS VEZES ELE BUGA UM POUCO, MAS NA MAIORIA DAS VEZES FICA LEGAL
   const formatContent = (text: string) => {
     return text.split("\n").map((line, index) => {
       const trimmedLine = line.trim();
@@ -109,6 +109,7 @@ export default function IdeaDetailModal({
     });
   };
 
+  // HANDLER DO COMPARTILHAMENTO USANDO A API SIMPLES DO REACT NATIVE PARA COMPARTILHAR TEXTO
   const handleShare = async (idea: any) => {
     try {
       const shareContent = `
@@ -159,7 +160,6 @@ ${idea.aiResponse}
           paddingBottom: insets.bottom,
         }}
       >
-        {/* Header with actions */}
         <View
           style={{
             padding: 20,
@@ -170,7 +170,6 @@ ${idea.aiResponse}
             alignItems: "center",
           }}
         >
-          {/* Left side - Title */}
           <Text
             style={{
               fontSize: 32,
@@ -181,7 +180,6 @@ ${idea.aiResponse}
             IDEA DETAILS
           </Text>
 
-          {/* Right side - Action buttons */}
           <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
             <TouchableOpacity
               onPress={handleShare.bind(null, idea)}
@@ -225,7 +223,6 @@ ${idea.aiResponse}
           </View>
         </View>
 
-        {/* Delete Confirmation */}
         {showDeleteConfirm && (
           <View
             style={{
@@ -270,11 +267,9 @@ ${idea.aiResponse}
           </View>
         )}
 
-        {/* Content */}
         <ScrollView style={{ flex: 1, padding: 20 }}>
           {formatContent(idea.aiResponse)}
 
-          {/* Original Inputs */}
           <View
             style={{
               marginTop: 30,
