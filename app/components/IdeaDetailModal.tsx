@@ -3,6 +3,7 @@ import React, { use, useState } from "react";
 import {
   View,
   Image,
+  Share,
   Text,
   ScrollView,
   TouchableOpacity,
@@ -21,6 +22,7 @@ export interface IdeaDetailModalProps {
   onShare: (idea: any) => void;
 }
 
+// PEÇO DESCULPAS POR ESSA FUNÇÃO QUE PODERIA MUITO BEM SER UM COMPONENTE SEPARADO COMO O MODAL DE RESULTADOS
 export default function IdeaDetailModal({
   visible,
   idea,
@@ -107,6 +109,39 @@ export default function IdeaDetailModal({
     });
   };
 
+  const handleShare = async (idea: any) => {
+    try {
+      const shareContent = `
+🎮 Game Jam Idea - ${idea.theme}
+
+${idea.aiResponse}
+
+---
+*Generated with JamHelp*
+🎯 Theme: ${idea.theme}
+⏱️ Duration: ${idea.duration}
+🛠️ Tech: ${idea.tech}
+📅 Created: ${new Date(idea.timestamp).toLocaleDateString()}
+    `.trim();
+
+      const result = await Share.share({
+        message: shareContent,
+      });
+
+      if (result.action === Share.sharedAction) {
+        console.log("Idea shared successfully!");
+      } else if (result.action === Share.dismissedAction) {
+        console.log("Share dialog dismissed");
+      }
+    } catch (error) {
+      console.error("Share failed:", error);
+      Alert.alert(
+        "Share Unavailable",
+        "Sharing is not available on this device. You can copy the text manually."
+      );
+    }
+  };
+
   if (!idea) return null;
 
   return (
@@ -149,7 +184,7 @@ export default function IdeaDetailModal({
           {/* Right side - Action buttons */}
           <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
             <TouchableOpacity
-              onPress={() => onShare(idea)}
+              onPress={handleShare.bind(null, idea)}
               style={{
                 width: 40,
                 height: 40,
