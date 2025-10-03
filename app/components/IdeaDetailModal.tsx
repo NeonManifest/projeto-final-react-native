@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useSystemTheme } from "../contexts/SystemThemeContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Feather from "@expo/vector-icons/Feather";
 
 export interface IdeaDetailModalProps {
   visible: boolean;
@@ -158,10 +159,7 @@ export default function IdeaDetailModal({
                 alignItems: "center",
               }}
             >
-              <Image
-                source={require("../../assets/images/share.svg")}
-                style={{ width: 20, height: 20 }}
-              />
+              <Feather name="share-2" size={20} color={theme.colors.text} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={handleDelete}
@@ -174,10 +172,7 @@ export default function IdeaDetailModal({
                 alignItems: "center",
               }}
             >
-              <Image
-                source={require("../../assets/images/trash.svg")}
-                style={{ width: 20, height: 20 }}
-              />
+              <Feather name="trash-2" size={20} color={theme.colors.text} />
             </TouchableOpacity>
             <TouchableOpacity
               onPress={onClose}
